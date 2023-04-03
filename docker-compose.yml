@@ -1,26 +1,42 @@
+# YAML syntax is JSON in shorthand.(www.yaml.org). It incorporates indention as a required part of its syntax.
+#RESOURCE: https://docs.docker.com/compose/compose-file/compose-file-v3/#ports
+
+# version specifies an informative-only version for this deployment.
 version: '3.8'
 
+#start the array of services that docker-compose will run.
 services:
-
+  # ui is the first service. everything indented below 'ui' is part of that service
   ui:
+    #grab an image from this address
     image: hawkinsr/demoapp:latest
+    #only continue if 'api' service has successfully started (but not necessarily ready).
+    #'restart' options are "no" (with quotes), 'always', 'on-failure', and 'unless-stopped'. 
     depends_on:
       api:
         condition: service_started
         restart: true
+    #'deploy' is optional. It specifies a service discovery method for external clients connecting to a service.
     deploy:
+      #he number of containers that should be running at any given time.
       replicas: 1
+      # Configure resource constraints.
       resources:
+        #Prevent the container from allocating more than this.
         limits:
           cpus: '0.25'
           memory: 50M
+        #The container must allocate at least this.
         reservations:
           cpus: '0.1'
           memory: 20M
+      #When to restart containers. (This replaces restart.)
+      #condition - Options are (default) 'any', 'none', 'on-failure'. Wait 5 seconds and only retry 3 times max.
       restart_policy:
         condition: on-failure
         delay: 5s
         max_attempts: 3
+    #expose ports. 'target' is the internal port, 'published' is the public port. both will require tcp.
     ports:
       - target: 80
         published: 9999
