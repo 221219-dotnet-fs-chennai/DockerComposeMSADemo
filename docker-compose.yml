@@ -9,7 +9,7 @@ services:
   # ui is the first service. everything indented below 'ui' is part of that service
   ui:
     #grab an image from this address
-    image: hawkinsr/demoapp:latest
+    image: hawkinsr/uidemo:latest
     #only continue if 'api' service has successfully started (but not necessarily ready).
     #'restart' options are "no" (with quotes), 'always', 'on-failure', and 'unless-stopped'. 
     depends_on:
@@ -43,7 +43,7 @@ services:
         protocol: tcp
 
   api:
-    image: hawkinsr/helloapp:latest
+    image: hawkinsr/apidemo:latest
     deploy:
       replicas: 1
       resources:
