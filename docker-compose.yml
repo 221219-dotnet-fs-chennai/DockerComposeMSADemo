@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   ui:
-    image: hawkinsr/demoapp:latest
+    image: hawkinsr/uidemo:latest
     depends_on:
       api:
         condition: service_started
@@ -27,7 +27,7 @@ services:
         protocol: tcp
 
   api:
-    image: hawkinsr/helloapp:latest
+    image: hawkinsr/apidemo:latest
     deploy:
       replicas: 1
       resources:
