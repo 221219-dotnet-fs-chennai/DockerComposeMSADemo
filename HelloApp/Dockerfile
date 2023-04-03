@@ -8,3 +8,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS run
 WORKDIR /app
 COPY --from=build /app/out ./
 ENTRYPOINT [ "dotnet", "./HelloApp.dll" ]
+EXPOSE 80
+
+HEALTHCHECK --interval=3m --timeout=5s \
+    CMD curl -f http://localhost:80 || exit 1

@@ -1,4 +1,31 @@
+version: '3.8'
+
 services:
+
+  ui:
+    image: hawkinsr/demoapp:latest
+    depends_on:
+      api:
+        condition: service_started
+        restart: true
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 20M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    ports:
+      - target: 80
+        published: 9999
+        protocol: tcp
+
   api:
     image: hawkinsr/helloapp:latest
     deploy:
@@ -17,29 +44,4 @@ services:
     ports:
       - target: 80
         published: 7069
-        protocol: tcp
-      - target: 443
-        published: 4443
-        protocol: tcp
-  ui:
-    image: hawkinsr/demoapp:latest
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: '0.25'
-          memory: 50M
-        reservations:
-          cpus: '0.1'
-          memory: 20M
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-    ports:
-      - target: 80
-        published: 9999
-        protocol: tcp
-      - target: 443
-        published: 9998
         protocol: tcp

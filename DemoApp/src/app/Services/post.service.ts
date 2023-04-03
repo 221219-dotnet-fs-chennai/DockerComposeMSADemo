@@ -10,14 +10,14 @@ import { Count } from '../Models/count';
 })
 export class PostService {
 
-  private JsonPlaceholder = 'https://jsonplaceholder.typicode.com/';
+  private JsonPlaceholder = 'https://jsonplaceholder.typicode.com';
   private helloapp = 'http://localhost:7069';
 
   constructor(private http: HttpClient) { }
 
   public getPosts(): Observable<Post[]>
   {
-    return this.http.get<Post[]>(this.JsonPlaceholder + "posts");
+    return this.http.get<Post[]>(this.JsonPlaceholder + "/posts");
   }
 
   public getTime(): Observable<Time>
