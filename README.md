@@ -51,5 +51,16 @@ Minikube is a tool that creates a local instance of a Kubernetes (K8s) cluster. 
 
 Visit https://minikube.sigs.k8s.io/docs/start/ for installation instructions. It is recomended that you follow the "Get Started" and "Hello Minikube" tutorials to  become familiar with the minkiube tool, `kubectl` commands, and K8s environment.
 
+Using the images that were built and pushed in previous steps, create a Deployment in a Kubernetes cluster using the `kubectl create` command set. Some specifics can be detailed by the deployment, but most of the things we care about right now will be handled in the next step. An example of a deplolyment command is:
+`kubectl create deployment {deployment name} --image={image}`
 
+Verify that the deployment was successful, and that the required pod is created by using `kubectl get` commands. `get pods` and `get deployments` will list all active pods and deployments, but you can specify what deployment or pod you want to list by using `kubectl get pod {pod-name}` or `kubectl get deployment {deployment-name}`
+
+Once you can see the deployment and resulting pod(s), use `kubectl describe pod` or `kubectl describe deployment` with the targets name to display more details on that particular object.
+
+Finally, we can start to connect the running pods to the cluster intranet and external network by exposing the deployments with `kubectl expose` commands. Additional option flags should be used to detail port mapping, type, and service name. For example the command:
+`kubectl expose deployment ui --type=NodePort --port=9999 --target-port=80 --name=ui-service`
+will create a `NodePort` named `ui-service`. The service will connect to port `80` of each pod, and allow other members of the cluster to contact this service on port `9999`.
+
+Once both ui and api deployments and pods are running, and both are connected to services, we can test each deployment by using a command built into the Minikube environment. Use `minikube service {service-name}` to connect your browser to the services. Verify that both services accept and respond to HTTP requests as expected.
 
