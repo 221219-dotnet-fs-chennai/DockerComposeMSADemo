@@ -3,9 +3,12 @@ kind: Service
 metadata:
   name: api-service
 spec:
+  #Workloads must be exposed externally using a either a LoadBalancer or NodePort.
   type: NodePort
   selector:
     app: api-service
   ports:
+    #Number or name of the port to access on the pods targeted by the service.
     - targetPort: 80
+      #The port that will be exposed by this service.
       port: 7069
