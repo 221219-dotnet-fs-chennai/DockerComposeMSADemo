@@ -3,9 +3,10 @@ kind: Service
 metadata:
   name: ui-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
-    app: ui-service
+    app: ui
   ports:
     - targetPort: 80
-      port: 8080
+      port: 9999
+      protocol: TCP

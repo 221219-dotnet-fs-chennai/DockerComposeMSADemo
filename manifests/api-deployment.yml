@@ -9,21 +9,12 @@ metadata:
 #spec is required:
 spec:
   # optional: It tells how many pods to keep
-  replicas: 1
+  replicas: 3
   #'selector' is a section used to identify key:value pairs that are important to the deployment.
   selector:
     #'matchlabels' is a list of key:value pairs that are enforced in the cluster
     matchLabels:
       app: api
-  #'strategy' configures how a deployment is to go.
-  strategy:
-    #'rollingupdate' runs multiple versions of an application at the same time. In this case, there is only 1 replica at a time.
-    type: RollingUpdate
-    rollingUpdate:
-      #'maxunavailable' (optional) specifies the max number of Pods that are allowed to be unavailable during update.
-      maxUnavailable: 1
-  #'minreadyseconds' means new Pods are marked 'progressing' when they become ready for at least 5 seconds.
-  minReadySeconds: 5
   #'template' (required) has the same schema as a Pod. It is nested. Does not have 'apiVersion' or 'kind'. It must have all the same required fields as a pod, A 'restart_policy' is provided (with default configurations) if you don't include it.
   template:
     metadata:

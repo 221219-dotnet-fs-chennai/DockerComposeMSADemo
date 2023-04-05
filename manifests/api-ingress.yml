@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /time
+        pathType: Prefix
+        backend:
+          service:
+            name: api-service
+            port:
+              number: 7069
+      - path: /count
+        pathType: Prefix
+        backend:
+          service:
+            name: api-service
+            port:
+              number: 7069

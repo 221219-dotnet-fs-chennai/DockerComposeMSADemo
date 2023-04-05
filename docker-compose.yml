@@ -12,10 +12,10 @@ services:
     image: hawkinsr/uidemo:latest
     #only continue if 'api' service has successfully started (but not necessarily ready).
     #'restart' options are "no" (with quotes), 'always', 'on-failure', and 'unless-stopped'. 
-    depends_on:
-      api:
-        condition: service_started
-        restart: true
+    # depends_on:
+    #   api:
+    #     condition: service_started
+    #     restart: true
     #'deploy' is optional. It specifies a service discovery method for external clients connecting to a service.
     deploy:
       #he number of containers that should be running at any given time.
